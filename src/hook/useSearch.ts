@@ -1,47 +1,37 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-type Canceler = (message?: string) => void;
 
-const useSearch = (query: string, page: number) => {
+
+const useSearch = ( toggle: boolean,limit:number) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [hasMore, setHasMore] = useState<boolean>(false);
-  const [books, setBooks] = useState<any[]>([]);
+ 
+  const [cats, setCats] = useState<any[]>([]);
 
   useEffect(() => {
-    setBooks([]); 
-  }, [query]);   
-
-  useEffect(() => {
-    let cancel: Canceler;
     setError(false);
     setLoading(true);
     axios({
       method: "GET",
-      url: `https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-users?limit=10&page=${page}`,
-      cancelToken: new axios.CancelToken((c) => (cancel = c)),
+      url: `https://api.thecatapi.com/v1/images/search?limit=${limit}&api_key=${''}`,
     })
       .then((res) => {
-        console.log(res)
-        setBooks([...books, ...res.data.data]);
-        setHasMore(res.data.data.length > 0);
+       
+        setCats([...cats, ...res.data]);
+       
         setLoading(false);
         
       })
       .catch((err) => {
-        if (axios.isCancel(err)) {
-          return;
-        }
-        console.log(err)
         setError(true);
         setLoading(false);
       });
 
-    return () => cancel();
-  }, [query, page]);
+    
+  }, [toggle]);
 
-  return { loading, error, hasMore, books };
+  return { loading, error, cats };
 };
 
 export default useSearch;

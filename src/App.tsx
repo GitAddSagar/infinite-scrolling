@@ -1,56 +1,61 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback,useEffect } from 'react';
 import './App.css';
 import useSearch from './hook/useSearch';
 
 function App() {
 
-  const [query, setQuery] = useState<string>("")
-  const [page, setPage] = useState<number>(1)
 
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value)
-  }
-  const { loading, error, hasMore, books } = useSearch(query, page)
+  const [toggle, setToggle] = useState<boolean>(false)
+  
+  const [limit, setLimit] = useState(1);
+  
+  const { loading, error, cats } = useSearch(toggle,limit)
   const observer = useRef<IntersectionObserver | null>(null)
 
-  const lastBook = useCallback((node: HTMLDivElement | null) => {
+  const lastCat = useCallback((node: HTMLDivElement | null) => {
     if (loading) { return }
     if (observer.current) { observer.current.disconnect() }
     observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasMore) {
-
-        setPage(prev => prev + 1)
+      if (entries[0].isIntersecting ) {
+        setToggle(!toggle)
       }
     })
     if (node) { observer.current.observe(node) }
-  }, [loading, hasMore])
+  }, [loading])
+
+  useEffect(() => {
+
+
+if(window.innerWidth>870){
+  setLimit(9)
+}else if(window.innerWidth>570){
+  setLimit(6)
+}
+else{
+  setLimit(4)
+}
+    
+  });
 
   return (
     <div className="App">
-      <input
-        type="text"
-        value={query}
-        onChange={handleChange} />
-
-
+      
 
       <div className="result">
         <h3>{loading && 'Loading...'}</h3>
         <h3>{error && 'Error Occured'}</h3>
-        <div>
-          {books.map((book, i) => {
-            if (i + 1 === books.length) {
-              return (<div ref={lastBook} key={i}><h3>{book.name}</h3>
-                <img src={book.avatar} />
+        <div className='AllCats'>
+          {cats.map((cat, i) => {
+            if (i + 1 === cats.length) {
+              return (<div ref={lastCat} key={i}>
+                <img src={cat.avatar} alt={cat.id}/>
               </div>)
             }
-            return (<div key={i}><h3>{book.name}</h3>
-              <img src={book.avatar} />
+            return (<div key={i}>
+              <img className="Cat" src={cat.url} alt={cat.id}/>
             </div>)
           })}
         </div>
-
       </div>
     </div>
   );

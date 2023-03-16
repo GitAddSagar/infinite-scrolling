@@ -10,8 +10,8 @@ const useSearch = (query: string, page: number) => {
   const [books, setBooks] = useState<any[]>([]);
 
   useEffect(() => {
-    setBooks([]);
-  }, [query]);
+    setBooks([]); 
+  }, [query]);   
 
   useEffect(() => {
     let cancel: Canceler;

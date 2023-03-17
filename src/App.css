@@ -2,25 +2,30 @@
   text-align: center;
 }
 .AllCats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr)
+  columns: 3
 }
 .Cat{
   width: 300px;
   border-radius: 20px;
+  margin: 10px;
+}
+
+#GitHub {
+  width: 70px;
+  right: 0;
 }
 
 @media only screen and (min-width:571px) and (max-width:870px){
   /* Tablet Screen */
 
   .AllCats{
-    grid-template-columns:repeat(2,1fr)
+    columns: 2
   }
   }
   
   @media only screen and (max-width:570px){
       /* Mobile Screen */
       .AllCats{
-        grid-template-columns:repeat(1,1fr)
+        columns: 1
       }
   }

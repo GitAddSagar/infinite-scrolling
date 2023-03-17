@@ -39,7 +39,10 @@ else{
 
   return (
     <div className="App">
-      
+    
+    <a target='_blank' href="https://github.com/Sagar1079/infinite-scrolling">
+       <img title='Click to View Source Code' id='GitHub' src="https://i.pinimg.com/564x/95/99/b5/9599b59f72fc043f13ca52dbf965b530.jpg" alt="" />
+       </a>
 
       <div className="result">
         <h3>{loading && 'Loading...'}</h3>

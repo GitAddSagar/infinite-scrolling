@@ -1,4 +1,4 @@
-# This is React TypeScript website which shows unlimited cats
+# This is a React TypeScript app which shows unlimited cats.
  
  
 <p align="center">

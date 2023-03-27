@@ -1,4 +1,4 @@
-<h1 align="center">This is a React TypeScript app which shows unlimited cats.</h1>
+<h1 align="center">This is a React TypeScript App which shows unlimited cats.</h1>
  
 <p align="center">
  <a href="#">

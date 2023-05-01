@@ -14,11 +14,13 @@ const useSearch = ( toggle: boolean,limit:number) => {
     setLoading(true);
     axios({
       method: "GET",
-      url: `https://api.thecatapi.com/v1/images/search?limit=${limit}&api_key=${''}`,
+      url: `https://api.thecatapi.com/v1/images/search?limit=${limit}&api_key=${'live_hJZSRGTxq83E5QPqQKEnTNBTeGRJMkhE2eL08LKVdKaRyYOlTo3NtB5zlWfyWzBD'}`,
     })
       .then((res) => {
        
         setCats([...cats, ...res.data]);
+
+        console.log(cats)
        
         setLoading(false);
         

@@ -4,9 +4,26 @@ import useSearch from './hook/useSearch';
 
 function App() {
 
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+  let lastScrollPosition = 0;
+
+   window.addEventListener('scroll', function() {
+  const currentScrollPosition = window.pageYOffset;
+
+  if (currentScrollPosition > lastScrollPosition) {
+    // scrolling down
+    scrollIndicator?.classList.add('hide');
+  } else {
+    // scrolling up
+    scrollIndicator?.classList.remove('hide');
+  }
+
+  lastScrollPosition = currentScrollPosition;
+});
+
+
 
   const [toggle, setToggle] = useState<boolean>(false)
-  
   const [limit, setLimit] = useState(1);
   
   const { loading, error, cats } = useSearch(toggle,limit)
@@ -39,10 +56,12 @@ else{
 
   return (
     <div className="App">
-    
-    <a target='_blank' href="https://github.com/Sagar1079/infinite-scrolling">
-       <img title='Click to View Source Code' id='GitHub' src="https://i.pinimg.com/564x/95/99/b5/9599b59f72fc043f13ca52dbf965b530.jpg" alt="" />
-       </a>
+
+<div className="scroll-indicator">
+  <a target='_blank' href="https://github.com/Sagar1079/infinite-scrolling">
+  <img title='Click to View Source Code' id='GitHub' src="https://i.pinimg.com/564x/95/99/b5/9599b59f72fc043f13ca52dbf965b530.jpg"/>
+  </a>
+</div>
 
       <div className="result">
         <h3>{loading && 'Loading...'}</h3>
@@ -50,13 +69,13 @@ else{
         <div className='AllCats'>
           {cats.map((cat, i) => {
             if (i + 1 === cats.length) {
-              return (<div ref={lastCat} key={i}>
-                <img src={cat.avatar} alt={cat.id}/>
-              </div>)
+              return (
+                <img className="Cat" ref={lastCat} key={i} src={cat.url} alt='Myaaaaonn'/>
+             )
             }
-            return (<div key={i}>
-              <img className="Cat" src={cat.url} alt={cat.id}/>
-            </div>)
+            return (
+              <img className="Cat" key={i} src={cat.url} alt='Myaaaaonn'/>
+            )
           })}
         </div>
       </div>

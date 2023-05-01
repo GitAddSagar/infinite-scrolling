@@ -1,31 +1,33 @@
 .App {
   text-align: center;
 }
-.AllCats{
-  columns: 3
+.AllCats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 5px;
+  margin-top: 100px;
 }
-.Cat{
-  width: 300px;
-  border-radius: 20px;
-  margin: 10px;
-}
-
 #GitHub {
   width: 70px;
-  right: 0;
 }
 
-@media only screen and (min-width:571px) and (max-width:870px){
-  /* Tablet Screen */
+.scroll-indicator {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: black;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
 
-  .AllCats{
-    columns: 2
-  }
-  }
-  
-  @media only screen and (max-width:570px){
-      /* Mobile Screen */
-      .AllCats{
-        columns: 1
-      }
-  }
+.scroll-indicator.hide {
+  opacity: 0;
+}
+
+.Cat{
+  margin: auto;
+  width: 300px;
+  height: 300px;
+}
+
+
